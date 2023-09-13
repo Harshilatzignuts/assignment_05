@@ -1,0 +1,7 @@
+# Redirects from what the browser requests to what we serve
+
+/login /login 200
+/products /products 200
+/change-password /change-password 200
+/edit-profile /edit-profile 200
+/authors/c%C3%A9line /authors/about-c%C3%A9line 200

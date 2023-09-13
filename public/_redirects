@@ -1,7 +1,0 @@
-# Redirects from what the browser requests to what we serve
-
-/login /login
-/products /products
-/change-password /change-password
-/edit-profile /edit-profile
-/authors/c%C3%A9line /authors/about-c%C3%A9line
