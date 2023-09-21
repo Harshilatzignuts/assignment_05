@@ -32,6 +32,7 @@ const AuthSlice = createSlice({
       state.auth = true;
 
       localStorage.setItem("users", JSON.stringify(newUserData));
+      state.users = newUserData;
     },
     AllUserData: (state, action) => {
       let usersDetails = JSON.parse(localStorage.getItem("users"));
@@ -87,21 +88,35 @@ const AuthSlice = createSlice({
     },
 
     updateUserPassword: (state, action) => {
-      // Find the user by ID and update their password
       const { id, newPassword } = action.payload;
-      const userIndex = state.users.findIndex((user) => user.id === id);
 
-      if (userIndex !== -1) {
-        state.users[userIndex].password = newPassword;
-        localStorage.setItem("users", JSON.stringify(state.users));
-      }
+      let updatedPassword = {};
+
+      const hashPassword = bcrypt.hashSync(newPassword);
+      console.log(hashPassword);
+
+      const arr = state.users.map((user) => {
+        if (user.id === id) {
+          updatedPassword = { ...user, password: hashPassword };
+          //user.password = updatedPassword;
+          return updatedPassword;
+        }
+        return user;
+      });
+      state.users = [...arr];
+      state.currentUser = updatedPassword;
+      localStorage.setItem("users", JSON.stringify([...arr]));
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify({
+          auth: true,
+          user: { ...updatedPassword },
+        })
+      );
       state.auth = true;
     },
 
     updateUserProfile: (state, action) => {
-      // Find the user by ID and update their profile data
-      const { id, updatedData } = action.payload;
-      // const userIndex = state.users.findIndex((user) => user.id === id);
       const data = state.users.map((user) => {
         return user.id === action.payload.id ? { ...action.payload } : user;
       });
@@ -110,7 +125,8 @@ const AuthSlice = createSlice({
       localStorage.setItem("users", JSON.stringify(data));
       localStorage.setItem("currentUser", JSON.stringify(updatedUserData));
       state.currentUser = { ...action.payload };
-
+      // state.users = { ...updatedUserData };
+      state.users = data;
       state.auth = true;
     },
 
@@ -119,6 +135,7 @@ const AuthSlice = createSlice({
         "currentUser",
         JSON.stringify({ auth: false, user: {} })
       );
+      state.currentUser = null;
       console.log("logout");
     },
   },

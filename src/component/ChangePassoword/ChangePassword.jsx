@@ -4,7 +4,9 @@ import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserPassword } from "../../Redux/AuthSlice";
 import { useNavigate } from "react-router-dom";
-import Header from "../Header/Header";
+import Header from "../header/Header";
+
+import bcrypt from "bcryptjs";
 const initialValues = {
   currPassword: "",
   newPassword: "",
@@ -14,6 +16,7 @@ const initialValues = {
 const ChangePassword = () => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
+  const users = useSelector((state) => state.user.users);
   const currUser = useSelector((state) => state.user.currentUser);
   const [changePasswordError, setChangePasswordError] = useState(null);
 
@@ -22,25 +25,54 @@ const ChangePassword = () => {
       initialValues,
       validationSchema: ChangePasswordSchema,
       onSubmit: (values, { setSubmitting, setFieldError }) => {
-        const { currentPassword, newPassword } = values;
+        const { currPassword, newPassword } = values;
+        const passwordMatch = bcrypt.compareSync(
+          currPassword,
+          currUser.password
+        );
+        console.log(passwordMatch);
+        const newPaswordMatch = bcrypt.compareSync(
+          newPassword,
+          currUser.password
+        );
+
+        console.log(newPaswordMatch);
         const user = currUser;
-        // console.log(user.password);
+        // console.log(user);
 
-        // console.log(values.currPassword);
+        // console.log(currPassword);
 
-        // console.log(newPassword);
-        if (values.currPassword !== user.password) {
-          setChangePasswordError("Current password is incorrect");
-          setSubmitting(false);
-          return;
+        console.log(newPassword);
+
+        // if (user && bcrypt.compareSync(currPassword, user.password)) {
+        //   setChangePasswordError("Current password is incorrect");
+        //   setSubmitting(false);
+        //   return;
+        // }
+
+        // // Dispatch the updateUserPassword action
+        // dispatch(updateUserPassword({ id: user.id, newPassword }));
+        // console.log("password change succsessfully");
+        // Navigate("../products");
+        // // Reset the form
+        // resetForm();
+
+        if (passwordMatch) {
+          if (newPaswordMatch == false) {
+            dispatch(
+              updateUserPassword({ ...users, id: user.id, newPassword })
+            );
+            console.log(newPassword);
+            Navigate("/products");
+            console.log("Password Changed Successfully! ");
+          } else {
+            setChangePasswordError(
+              "New Password cannot be same as Current Password"
+            );
+          }
+        } else {
+          setChangePasswordError("Current Password is Wrong");
         }
-
-        // Dispatch the updateUserPassword action
-        dispatch(updateUserPassword({ id: user.id, newPassword }));
-        console.log("password change succsessfully");
-        Navigate("../products");
-        // Reset the form
-        resetForm();
       },
     });
 

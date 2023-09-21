@@ -1,16 +1,17 @@
-import SignUp from "./Component/Auth/SignUp";
+import SignUp from "./component/auth/SignUp";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./Component/Auth/Login";
+
 import PrivateRoute from "./PrivateRoute";
-import ProductList from "./Component/Product/ProductList";
+import ProductList from "./component/product/ProductList";
 import store from "./store/store";
 import { Provider } from "react-redux";
-import { AllUserData } from "./Redux/AuthSlice";
+import { AllUserData } from "./redux/AuthSlice";
 import { useDispatch } from "react-redux";
-import ChangePassword from "./Component/ChangePassoword/ChangePassword";
-import ProductDetail from "./Component/Product/ProductDetail";
-import EditProfile from "./Component/EditProfile/EditProfile";
+import ChangePassword from "./component/change-passoword/ChangePassword";
+import ProductDetail from "./component/product/ProductDetail";
+import EditProfile from "./component/edit-profile/EditProfile";
 import { useEffect } from "react";
+import Login from "./component/auth/Login";
 
 function App() {
   const dispatch = useDispatch();

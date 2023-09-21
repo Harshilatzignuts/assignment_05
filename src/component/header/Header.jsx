@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../Redux/AuthSlice";
+import { logout } from "../../redux/AuthSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Hamburger = () => (

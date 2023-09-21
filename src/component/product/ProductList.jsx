@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 
 import { useNavigate } from "react-router-dom";
-import Header from "../Header/Header";
+import Header from "../header/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../../Redux/ProductSlice";
-import { statuses } from "../../Redux/ProductSlice";
-import { AllUserData } from "../../Redux/AuthSlice";
-
+import { fetchProducts } from "../../redux/ProductSlice";
+import { statuses } from "../../redux/ProductSlice";
+import { AllUserData } from "../../redux/AuthSlice";
+import "./Product.css";
 const ProductList = () => {
   const dispatch = useDispatch();
 

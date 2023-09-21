@@ -4,7 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateUserProfile } from "../../Redux/AuthSlice";
-import Header from "../Header/Header";
+import Header from "../header/Header";
 
 const EditProfile = () => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const EditProfile = () => {
     } else {
       dispatch(updateUserProfile({ id: currentUser.id, ...values }));
       console.log(values);
-      setUpdateProfileError("something missing");
+      // setUpdateProfileError("something missing");
       Navigate("/products");
       console.log("User Details Updated Successfully!");
     }

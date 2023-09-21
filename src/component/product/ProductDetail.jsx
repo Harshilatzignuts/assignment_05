@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import Header from "../Header/Header";
+import Header from "../header/Header";
 import {
   Card,
   CardImg,

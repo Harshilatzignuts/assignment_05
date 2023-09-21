@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { LoginSchema } from "../../schemas";
 import { useSelector, useDispatch } from "react-redux";
-import { login } from "../../Redux/AuthSlice";
-import { AllUserData } from "../../Redux/AuthSlice";
+import { login } from "../../redux/AuthSlice";
+import { AllUserData } from "../../redux/AuthSlice";
 import bcrypt from "bcryptjs";
 const initialValues = {
   email: "",
@@ -15,7 +15,6 @@ const Login = () => {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
   const users = useSelector((state) => state.user.users);
-
   const [loginError, setLoginError] = useState(null);
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
@@ -23,7 +22,6 @@ const Login = () => {
       initialValues,
       validationSchema: LoginSchema,
       onSubmit: (values, { setSubmitting, setFieldError }) => {
-        console.log(users);
         const { email, password } = values;
 
         // console.log(email, password);

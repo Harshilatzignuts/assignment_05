@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { signUpSchema } from "../../schemas";
 import "./styled/authStyles.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../Redux/AuthSlice";
+import { addUser } from "../../redux/AuthSlice";
 import { Link, useNavigate } from "react-router-dom";
 
 const initialValues = {
